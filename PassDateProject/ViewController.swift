@@ -17,6 +17,16 @@ class ViewController: UIViewController {
         performSegue(withIdentifier: "detailSegue", sender: nil)
     }
     
+    @IBAction func unwindToMainViewController(segue: UIStoryboardSegue){
+        guard segue.identifier == "unwindSegue" else { return }
+        guard let sourceViewController = segue.source as? SecondViewController else { return }
+        self.resultLabel.text = sourceViewController.label.text
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let viewController = segue.destination as? SecondViewController else { return }
+        viewController.login = loginTextField.text
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
